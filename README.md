@@ -97,7 +97,7 @@ server.set_http_handler<GET, POST>("/", [](request& req, response& res) mutable{
 });
 
 //client
-std::string uri = "http://www.purecpp.com";
+std::string uri = "http://www.purecpp.org";
 response_data result = client->get(uri); //sync get
 
 client->async_get(uri, [](response_data data) {// async get
