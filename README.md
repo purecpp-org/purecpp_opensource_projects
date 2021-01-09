@@ -236,23 +236,6 @@ code first:
   std::string str = future.Get(); //44
 ```
 
-## plugincpp
-
-项目名称：[plugincpp](https://github.com/qicosmos/plugincpp)
-
-状态：孵化中
-
-需要的C++版本：C++11
-
-项目简介：
-
-现代C++跨平台插件框架，零依赖，下载即用。处于开发中状态。
-
-code first:
-
-```c++
-TODO
-```
 ## NoahGameFrame
 
 项目名称：[NoahGameFrame](https://github.com/ketoo/NoahGameFrame)
@@ -281,4 +264,40 @@ int NFHelloWorld3Module::OnClassCallBackEvent(const NFGUID& self, const std::str
 	m_pKernelModule->SetPropertyString(self, "Hello", "hello world");
 	return 0;
 }
+```
+
+## plugincpp
+
+项目名称：[plugincpp](https://github.com/qicosmos/plugincpp)
+
+状态：孵化中
+
+需要的C++版本：C++11
+
+项目简介：
+
+现代C++跨平台插件框架，零依赖，下载即用。处于开发中状态。
+
+code first:
+
+```c++
+TODO
+```
+
+## raftcpp
+
+项目名称：[plugincpp](https://github.com/topcpporg/raftcpp)
+
+状态：孵化中
+
+需要的C++版本：C++17
+
+项目简介：
+
+An implementation of Raft consensus algorithm in modern C++.
+
+code first:
+
+```c++
+TODO
 ```
