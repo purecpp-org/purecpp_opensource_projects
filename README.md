@@ -511,18 +511,6 @@ code first:
 namespace nebula {
 namespace storage {
 
-folly::SemiFuture<StorageRpcResponse<storage::cpp2::ExecResponse>> addVertices(
-        GraphSpaceID space,
-        std::vector<storage::cpp2::Vertex> vertices,
-        bool overwritable,
-        folly::EventBase* evb = nullptr);
-
-folly::SemiFuture<StorageRpcResponse<storage::cpp2::ExecResponse>> addEdges(
-    GraphSpaceID space,
-    std::vector<storage::cpp2::Edge> edges,
-    bool overwritable,
-    folly::EventBase* evb = nullptr);
-
 folly::SemiFuture<StorageRpcResponse<storage::cpp2::QueryResponse>> getNeighbors(
         GraphSpaceID space,
         const std::vector<VertexID> &vertices,
