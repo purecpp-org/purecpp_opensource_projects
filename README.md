@@ -24,6 +24,7 @@ code first：(10行以内的代码展示项目)
 * [asio_redis_client](#asio_redis_client)
 * [future](#future)
 * [NoahGameFrame](#NoahGameFrame)
+* [ajson](#ajson)
 
 ## 孵化中
 
@@ -272,6 +273,37 @@ int NFHelloWorld3Module::OnClassCallBackEvent(const NFGUID& self, const std::str
 	return 0;
 }
 ```
+
+## ajson
+
+项目名称：[NoahGameFrame](https://github.com/lordoffox/ajson)
+
+状态：已发布
+
+需要的C++版本：C++11
+
+项目简介：
+
+a utility for serialize C++ and json.
+
+code first:
+
+```c++
+struct Person{
+  std::string  Name;
+  int          Age;
+};
+
+AJSON(Person , Name , Age)
+
+int main(int argc,char* argv[]){
+  Person obj;
+  char * json= "{\"Name\" : \"Boo\", \"Age\" : 28}";
+  ajson::load_from_buff(obj,json);
+  return 0;
+}
+```
+
 
 ## plugincpp
 
