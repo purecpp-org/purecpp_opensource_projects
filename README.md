@@ -25,6 +25,9 @@ code first：(10行以内的代码展示项目)
 * [future](#future)
 * [NoahGameFrame](#NoahGameFrame)
 * [ajson](#ajson)
+* [drogon](#drogon)
+* [workflow](#workflow)
+* [srpc](#srpc)
 * [librf](#librf)
 
 ## 孵化中
@@ -180,9 +183,9 @@ void comment(request& req, response& res) {
     }
 }
 
-server.set_http_handler<POST>("/comment", comment, &purecpp_ctl, check_login{}, check_comment_input{});
+server.set_http_handler<POST>("/comment", comment, check_login{}, check_comment_input{});
 
-//request
+//post request
 http://purecpp.org/comment
 ```
 
@@ -277,7 +280,7 @@ int NFHelloWorld3Module::OnClassCallBackEvent(const NFGUID& self, const std::str
 
 ## ajson
 
-项目名称：[NoahGameFrame](https://github.com/lordoffox/ajson)
+项目名称：[ajson](https://github.com/lordoffox/ajson)
 
 状态：已发布
 
@@ -368,15 +371,99 @@ local path, err = moon.co_call("lua", addr_scene, "PlayerMove", {x=123.0,y = 124
 -- do something
 ```
 
+## drogon
+
+项目名称: [drogon](https://github.com/an-tao/drogon)
+
+状态: 已发布
+
+需要的C++版本: C++14
+
+项目简介:
+
+Drogon是一个基于C++14/17的Http应用高性能跨平台异步框架，使用Drogon可以方便的使用C++构建各种类型的Web应用程序。
+
+code first:
+
+```c++
+#include <drogon/drogon.h>
+using namespace drogon;
+int main()
+{
+    app().setLogPath("./")
+         .setLogLevel(trantor::Logger::kWarn)
+         .addListener("0.0.0.0", 80)
+         .setThreadNum(16)
+         .enableRunAsDaemon()
+         .run();
+}
+```
+
+## workflow
+
+项目名称: [workflow](https://github.com/sogou/workflow)
+
+状态: 已发布
+
+需要的C++版本: C++11
+
+项目简介:
+
+Workflow可以同时用于异步调度和并行计算，自带Http/Redis/MySQL/Kafka协议，除OpenSSL无其他依赖，通过任务流模式为用户提供完备的通信计算融为一体的编程范式，自带服务治理，是一个设计优雅的企业级编程引擎，在搜狗内部支撑搜索服务、云输入法、在线广告的每日数百亿以上的请求。
+
+code first:
+
+```c++
+int main()
+{
+    WFHttpServer server([](WFHttpTask *task) {
+        task->get_resp()->append_output_body("<html>Hello World!</html>");
+    });
+    if (server.start(8888) == 0) {  // start server on port 8888
+        getchar(); // press "Enter" to end.
+        server.stop();
+    }
+    return 0;
+}
+```
+
+## srpc
+
+项目名称: [srpc](https://github.com/sogou/srpc)
+
+状态: 已发布
+
+需要的C++版本: C++11
+
+项目简介:
+
+srpc是基于workflow开发的RPC系统，兼具高性能和低门槛。支持IDL：**Protobuf/Thrift**；支持协议：**SRPC/BRPC/ThriftFramed/ThriftHttp**；支持压缩类型：**snappy/gzip/zlib/lz4**；支持json且可使用Http进行跨语言。自带部分代码生成，其中thrift纯手工解析，并且打通workflow自带的其他功能包括任务流、计算调度和服务治理等。
+
+code first:
+
+```c++
+int main()
+{
+    Example::SRPCClient client("127.0.0.1", 1412);
+    EchoRequest req;
+    req.set_message("Hello, srpc!");
+    client.Echo(&req, [](EchoResponse *response, RPCContext *ctx) {
+        printf("%s\n", response->DebugString().c_str());
+    });
+    pause();
+    return 0;
+}
+```
+
 ## librf
 
-项目名称：[librf](https://github.com/tearshark/librf)
+项目名称: [librf](https://github.com/tearshark/librf)
 
-状态：已发布
+状态: 已发布
 
-需要的C++版本：C++17
+需要的C++版本: C++17(msvc&clang) / C++20(gcc)
 
-项目简介：
+项目简介:
 
 一个基于C++20 coroutines编写的无栈协程库。
 
@@ -385,6 +472,7 @@ code first:
 ```c++
 using namespace resumef;
 using namespace asio::ip;
+
 future_t<> RunPingPongEchoClient(asio::io_service & ios, tcp::resolver::iterator ep)
 {
 	std::array<char, BUF_SIZE> read_buff_;
