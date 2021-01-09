@@ -26,6 +26,8 @@ code first：(10行以内的代码展示项目)
 * [NoahGameFrame](#NoahGameFrame)
 * [ajson](#ajson)
 * [drogon](#drogon)
+* [workflow](#workflow)
+* [srpc](#srpc)
 
 ## 孵化中
 
@@ -393,5 +395,61 @@ int main()
          .setThreadNum(16)
          .enableRunAsDaemon()
          .run();
+}
+```
+
+## workflow
+
+项目名称: [workflow](https://github.com/sogou/workflow)
+
+状态: 已发布
+
+需要的C++版本: C++11
+
+项目简介:
+
+Workflow可以同时用于异步调度和并行计算，自带Http/Redis/MySQL/Kafka协议，除OpenSSL无其他依赖，通过任务流模式为用户提供完备的通信计算融为一体的编程范式，自带服务治理，是一个设计优雅的企业级编程引擎，在搜狗内部支撑搜索服务、云输入法、在线广告的每日数百亿以上的请求。
+
+code first:
+
+```c++
+int main()
+{
+    WFHttpServer server([](WFHttpTask *task) {
+        task->get_resp()->append_output_body("<html>Hello World!</html>");
+    });
+    if (server.start(8888) == 0) {  // start server on port 8888
+        getchar(); // press "Enter" to end.
+        server.stop();
+    }
+    return 0;
+}
+```
+
+## srpc
+
+项目名称: [srpc](https://github.com/sogou/srpc)
+
+状态: 已发布
+
+需要的C++版本: C++11
+
+项目简介:
+
+srpc是基于workflow开发的RPC系统，兼具高性能和低门槛。支持IDL：**Protobuf/Thrift**；支持协议：**SRPC/BRPC/ThriftFramed/ThriftHttp**；支持压缩类型：**snappy/gzip/zlib/lz4**；支持json且可使用Http进行跨语言。自带部分代码生成，其中thrift纯手工解析，并且打通workflow自带的其他功能包括任务流、计算调度和服务治理等。
+
+code first:
+
+```c++
+int main()
+{
+    Example::SRPCClient client("127.0.0.1", 1412);
+    EchoRequest req;
+    req.set_message("Hello, srpc!");
+    client.Echo(&req, [](EchoResponse *response, RPCContext *ctx) {
+        printf("%s\n", response->DebugString().c_str());
+    });
+    pause();
+    return 0;
 }
 ```
