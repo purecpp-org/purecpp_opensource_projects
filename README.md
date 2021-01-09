@@ -29,6 +29,7 @@ code first：(10行以内的代码展示项目)
 
 * [plugincpp](#plugincpp)
 * [raftcpp](#raftcpp)
+* [moon](#moon)
 
 ## rest_rpc
 
@@ -306,4 +307,30 @@ code first:
 
 ```c++
 TODO
+```
+
+## moon
+
+项目名称：[moon](https://github.com/sniper00/moon)
+
+状态：孵化中
+
+需要的C++版本：C++17
+
+项目简介：
+
+C++编写的跨平台游戏服务器框架，采用(线程绑定)Actor模型，C/CPP编写核心库，Lua编写逻辑代码的开发方式。框架注重游戏服务器开发，仅提供核心功能，不带游戏逻辑代码。
+
+code first:
+
+```lua
+---Scene service
+function CMD.PlayerMove(targetPos, speed)
+	--call navmesh service(write with cpp navmeshlib),return path points
+	return moon.co_call("lua", addr_namvesh, "FindPath", startPos, targetPos)
+end
+
+---Player service
+local path, err = moon.co_call("lua", addr_scene, "PlayerMove", {x=123.0,y = 124.0}, 1.0)
+-- do something
 ```
