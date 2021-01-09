@@ -180,9 +180,9 @@ void comment(request& req, response& res) {
     }
 }
 
-server.set_http_handler<POST>("/comment", comment, &purecpp_ctl, check_login{}, check_comment_input{});
+server.set_http_handler<POST>("/comment", comment, check_login{}, check_comment_input{});
 
-//request
+//post request
 http://purecpp.org/comment
 ```
 
