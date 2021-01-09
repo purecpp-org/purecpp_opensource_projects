@@ -200,7 +200,7 @@ code first:
 
 ## future
 
-项目名称：[asio_redis_client](https://github.com/topcpporg/future)
+项目名称：[future](https://github.com/topcpporg/future)
 
 状态：已发布
 
