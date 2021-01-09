@@ -277,7 +277,7 @@ int NFHelloWorld3Module::OnClassCallBackEvent(const NFGUID& self, const std::str
 
 ## ajson
 
-项目名称：[NoahGameFrame](https://github.com/lordoffox/ajson)
+项目名称：[ajson](https://github.com/lordoffox/ajson)
 
 状态：已发布
 
