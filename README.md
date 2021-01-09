@@ -243,3 +243,32 @@ code first:
 ```c++
 TODO
 ```
+## NoahGameFrame
+
+项目名称：[NoahGameFrame](https://github.com/ketoo/NoahGameFrame)
+
+状态：已发布
+
+需要的C++版本：C++11
+
+项目简介：
+
+C++跨平台插件式，模块化游戏服务器架构，下载即用
+
+code first:
+
+```c++
+bool NFHelloWorld3Module::Init()
+{
+        m_pKernelModule = pPluginManager->FindModule<NFIKernelModule>();
+        m_pKernelModule->AddClassCallBack(NFrame::Player::ThisName(), this, &NFHelloWorld3Module::OnClassCallBackEvent);
+}
+
+int NFHelloWorld3Module::OnClassCallBackEvent(const NFGUID& self, const std::string& className, const CLASS_OBJECT_EVENT event, const NFDataList& arg)
+{
+	m_pEventModule->AddEventCallBack(self, 1, this, &NFHelloWorld3Module::OnEvent);
+	m_pKernelModule->SetPropertyInt(self, "Hello", 1);
+	m_pKernelModule->SetPropertyString(self, "Hello", "hello world");
+	return 0;
+}
+```
