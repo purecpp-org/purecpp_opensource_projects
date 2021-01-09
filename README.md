@@ -30,6 +30,7 @@ code first：(10行以内的代码展示项目)
 * [srpc](#srpc)
 * [librf](#librf)
 * [nebula](#nebula)
+* [cpp-ipc](#cpp-ipc)
 
 ## 孵化中
 
@@ -520,4 +521,56 @@ folly::SemiFuture<StorageRpcResponse<storage::cpp2::QueryResponse>> getNeighbors
         folly::EventBase* evb = nullptr);
 }
 }
+```
+
+## cpp-ipc
+
+项目名称: [cpp-ipc](https://github.com/mutouyun/cpp-ipc)
+
+状态: 已发布
+
+需要的C++版本: C++14(msvc&gcc&clang), 推荐支持C++17的编译器
+
+项目简介:
+
+使用共享内存的跨平台（Linux/Windows，x86/x64/ARM）高性能IPC通讯库。
+
+code first:
+
+```c++
+std::vector<char const *> const datas = {
+    "hello!",
+    "foo",
+    "bar",
+    "ISO/IEC",
+    "14882:2011",
+    "ISO/IEC 14882:2017 Information technology - Programming languages - C++",
+    "ISO/IEC 14882:2020",
+    "Modern C++ Design: Generic Programming and Design Patterns Applied"
+};
+
+// thread producer
+std::thread t1 {[&] {
+    ipc::route cc { "my-ipc-route" };
+    // waiting for connection
+    cc.wait_for_recv(1);
+    // sending datas
+    for (auto str : datas) cc.send(str);
+    // quit
+    cc.send(ipc::buff_t('\0'));
+}};
+
+// thread consumer
+std::thread t2 {[&] {
+    ipc::route cc { "my-ipc-route", ipc::receiver };
+    while (1) {
+        auto buf = cc.recv();
+        auto str = static_cast<char*>(buf.data());
+        if (str == nullptr || str[0] == '\0') return;
+        std::printf("recv: %s\n", str);
+    }
+}};
+
+t1.join();
+t2.join();
 ```
