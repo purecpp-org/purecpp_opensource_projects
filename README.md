@@ -137,7 +137,7 @@ auto result = mysql.query<std::tuple<std::string>>("select name from person"); /
 
 ## feather
 
-项目名称：[ormpp](https://github.com/qicosmos/feather)
+项目名称：[feather](https://github.com/qicosmos/feather)
 
 状态：已发布
 
@@ -169,7 +169,7 @@ http://purecpp.org/comment
 
 ## asio_redis_client
 
-项目名称：[ormpp](https://github.com/topcpporg/asio_redis_client)
+项目名称：[asio_redis_client](https://github.com/topcpporg/asio_redis_client)
 
 状态：已发布
 
@@ -200,7 +200,7 @@ code first:
 
 ## future
 
-项目名称：[ormpp](https://github.com/topcpporg/future)
+项目名称：[asio_redis_client](https://github.com/topcpporg/future)
 
 状态：已发布
 
