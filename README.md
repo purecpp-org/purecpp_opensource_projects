@@ -226,3 +226,20 @@ code first:
   std::string str = future.Get(); //44
 ```
 
+## plugincpp
+
+项目名称：[plugincpp](https://github.com/qicosmos/plugincpp)
+
+状态：孵化中
+
+需要的C++版本：C++11
+
+项目简介：
+
+现代C++跨平台插件框架，零依赖，下载即用。处于开发中状态。
+
+code first:
+
+```c++
+TODO
+```
