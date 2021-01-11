@@ -31,6 +31,7 @@ code first：(10行以内的代码展示项目)
 * [librf](#librf)
 * [nebula](#nebula)
 * [cpp-ipc](#cpp-ipc)
+* [luatinkerE](#luatinkerE)
 
 ## 孵化中
 
@@ -573,4 +574,47 @@ std::thread t2 {[&] {
 
 t1.join();
 t2.join();
+```
+
+
+## luatinkerE
+
+项目名称：[luatinkerE](https://github.com/yanwei1983/luatinkerE)
+
+状态：已发布
+
+需要的C++版本：主版本C++11 或 C++17分支
+
+项目简介：
+
+LUA-C++ 绑定库"lua_tinker" 扩展为支持 c++11/14/17各种新特性 和lua 5.3
+
+code first:
+
+```c++
+//c++bind
+lua_tinker::def("func_name", &func);
+lua_tinker::set("var_name", &var);
+lua_tinker::class_add<class_t>("class_name");
+lua_tinker::class_def<class_t>("func_name", &class_t::func);
+lua_tinker::class_mem_readonly<class_t>("member_name", &class_t::member);
+lua_tinker::class_mem_static<class_t>("member_name", &class_t::member);
+lua_tinker::class_property<ff>(L, "m_prop", &ff::getVal, &ff::setVal);
+lua_tinker::class_property<ff>(L, "m_prop_readonly", &ff::getVal, nullptr);
+lua_tinker::class_inh<ff, ff_base>(L);
+lua_tinker::def(L, "test_overload", lua_tinker::args_type_overload_functor(
+        lua_tinker::make_functor_ptr((int(*)(int))(&test_overload)),
+        lua_tinker::make_functor_ptr((int(*)(double))(&test_overload)),
+        lua_tinker::make_functor_ptr((int(*)(int, double))(&test_overload)),
+        lua_tinker::make_functor_ptr((int(*)(int, int, double))(&test_overload))));
+
+
+//call lua
+ret_val_t ret = lua_tinker::call<ret_val_t>("func_name", param1, param2);
+var_t var = lua_tinker::get<var_t>("var_name");
+
+std::function<int(int, int)> func = [](int k, int j)->int {	return k + j; };
+lua_tinker::def(L, "std_function_int_int", func);	//can hold function
+
+lua_tinker::lua_function_ref<int> lua_func = lua_tinker::call<decltype(lua_func)>(L, "test_lua_luafunction");
 ```
