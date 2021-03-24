@@ -32,6 +32,7 @@ code first：(10行以内的代码展示项目)
 * [nebula](#nebula)
 * [cpp-ipc](#cpp-ipc)
 * [luatinkerE](#luatinkerE)
+* [ScriptX](#ScriptX)
 
 ## 孵化中
 
@@ -618,3 +619,56 @@ lua_tinker::def(L, "std_function_int_int", func);	//can hold function
 
 lua_tinker::lua_function_ref<int> lua_func = lua_tinker::call<decltype(lua_func)>(L, "test_lua_luafunction");
 ```
+
+## ScriptX
+
+项目名称：[ScriptX](https://github.com/Tencent/ScriptX)
+
+状态：已发布
+
+需要的C++版本：C++17
+
+项目简介：
+
+ScriptX是一个脚本引擎抽象层。对下封装多种脚本引擎，对上暴露统一的API，使得上层调用者可以完全隔离底层的引擎实现(后端)。
+
+ScriptX不仅隔离了几种JavaScript引擎，甚至可以隔离不同脚本语言，使得上层仅需修改一个编译选项即可无缝切换脚本引擎和脚本语言。
+
+ScriptX的术语中，"前端"指对外的C++ API，"后端"则指不同的底层引擎，目前已经实现的后端有：V8, node.js, JavaScriptCore, WebAssembly, Lua.
+
+code first:
+
+```c++
+EngineScope enter(engine);
+try {
+  engine->eval("function fibo(x) { if (x<=2 ) return 1; else return fibo(x-1) + fibo(x-2) }");
+  Local<Function> fibo = engine->get("fibo").asFunction();
+  Local<Value> ret = fibo.call({}, 10);
+  ret.asNumber().toInt32() == 55;
+
+  // or use: Function::newFunction(std::puts);
+  engine->set("log", Function::newFunction(
+      [](const std::string& msg) {
+        std::cerr << "[log]: " << msg << std::endl;
+      }));
+  engine->eval("log('hello world');");
+
+  auto info = json.get("info").asObject();
+  info.get("version").asString().toString() ==  "1.18";
+  info.get("time").asNumber().toInt32() == 132;
+
+  Local<Object> bind = engine->eval("...").asObject();
+  MyBind* ptr = engine->getNativeInstance<MyBind>(bind);
+  ptr->callCppFunction();
+
+} catch (Exception& e) {
+  FAIL() << e.message() << e.stacktrace();
+  // or FAIL() << e;
+}
+```
+
+1. 使用 EngineScope 进入引擎环境
+2. 绝大多是API可以接受C++原生类型作为参数，内部自动转换类型
+3. 可以从C/C++函数直接创建脚本函数（native 绑定）
+4. 支持脚本的异常处理
+5. API强类型
