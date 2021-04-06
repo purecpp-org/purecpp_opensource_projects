@@ -33,6 +33,7 @@ code first：(10行以内的代码展示项目)
 * [cpp-ipc](#cpp-ipc)
 * [luatinkerE](#luatinkerE)
 * [ScriptX](#ScriptX)
+* [knet](#knet)
 
 ## 孵化中
 
@@ -672,3 +673,40 @@ try {
 3. 可以从C/C++函数直接创建脚本函数（native 绑定）
 4. 支持脚本的异常处理
 5. API强类型
+
+## knet
+
+项目名称：[knet](https://github.com/KibaAmor/knet)
+
+状态：已发布
+
+需要的C++版本：C++11
+
+项目简介：
+
+一个跨平台的无锁且支持定时器的C++11网络库。
+
+1. 支持Window、Linux、MacOS、FreeBSD和OpenBSD
+2. 同时支持同步、异步两种使用方式
+3. 易于扩展，支持网络粘包
+4. 代码少，无第三方库依赖
+5. 无锁设计，每个连接的创建销毁逻辑都在同一个固定的线程中处理
+6. 支持定时器，如心跳发送与检测
+
+code first:
+
+```c++
+// server listen address
+address addr;
+address::resolve_one(ip, port, fa, addr);
+
+// client connection worker
+async_worker wkr(cfc);
+wkr.start(thread_num);
+
+// listen and accept connection
+acceptor acc(wkr);
+acc.start(addr);
+acc.update();
+```
+
