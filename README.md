@@ -687,26 +687,44 @@ try {
 一个跨平台的无锁且支持定时器的C++11网络库。
 
 1. 支持Window、Linux、MacOS、FreeBSD和OpenBSD
-2. 同时支持同步、异步两种使用方式
-3. 易于扩展，支持网络粘包
+2. 支持同步、异步两种处理方式来处理socket的消息
+3. 接收到的数据存放在缓存中，便于粘包
 4. 代码少，无第三方库依赖
-5. 无锁设计，每个连接的创建销毁逻辑都在同一个固定的线程中处理
-6. 支持定时器，如心跳发送与检测
+5. 无锁设计，每个socket的读写操作都固定在一个不变线程中，避免处理多线程问题
+6. 支持在connection上设置定时器，可以实现心跳机制
 
 code first:
 
 ```c++
-// server listen address
+// basic class definition
+struct secho_conn : conn {
+    void do_on_connected() override {
+        // Set a timer to be triggered after 100 milliseconds 
+        this->add_timer(knet::now_ms() + 100, 0);
+    }
+    size_t do_on_recv_data(char* data, size_t size) override {
+        // handle reviced data
+    }
+    void do_on_timer(int64_t ms, const knet::userdata& ud) override {
+        // handle timer
+    }
+};
+struct secho_conn_factory : conn_factory {
+    conn* do_create_conn() override { return new secho_conn(); }
+    void do_destroy_conn(conn* c) override { delete static_cast<secho_conn*>(c); }
+};
+
+// tcp server
 address addr;
 address::resolve_one(ip, port, fa, addr);
 
-// client connection worker
-async_worker wkr(cfc);
-wkr.start(thread_num);
+secho_conn_factory cf;
+worker wkr(cf);
 
 // listen and accept connection
 acceptor acc(wkr);
 acc.start(addr);
-acc.update();
-```
-
+while (true) {
+    acc.update();
+    wkr.update();
+}
