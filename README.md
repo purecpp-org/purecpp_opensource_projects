@@ -33,12 +33,12 @@ code first：(10行以内的代码展示项目)
 * [cpp-ipc](#cpp-ipc)
 * [luatinkerE](#luatinkerE)
 * [ScriptX](#ScriptX)
+* [moon](#moon)
 
 ## 孵化中
 
 * [plugincpp](#plugincpp)
 * [raftcpp](#raftcpp)
-* [moon](#moon)
 
 ## rest_rpc
 
@@ -353,13 +353,13 @@ TODO
 
 项目名称：[moon](https://github.com/sniper00/moon)
 
-状态：孵化中
+状态：已发布
 
 需要的C++版本：C++17
 
 项目简介：
 
-C++编写的跨平台游戏服务器框架，采用(线程绑定)Actor模型，C/CPP编写核心库，Lua编写逻辑代码的开发方式。框架注重游戏服务器开发，仅提供核心功能，不带游戏逻辑代码。
+C++编写的轻量级游戏服务器框架，采用Actor模型，C/CPP编写核心库，Lua编写逻辑代码的开发方式，框架专注提供游戏开发核心功能。
 
 code first:
 
