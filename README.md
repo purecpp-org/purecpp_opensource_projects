@@ -333,7 +333,7 @@ TODO
 
 ## raftcpp
 
-项目名称：[plugincpp](https://github.com/topcpporg/raftcpp)
+项目名称：[raftcpp](https://github.com/topcpporg/raftcpp)
 
 状态：孵化中
 
