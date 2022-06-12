@@ -685,20 +685,15 @@ try {
 项目简介：
 cpp media server是基于c++17开发的webrtc会议服务sfu，并且同时支持丰富的直播流媒体特性。
 
-支持跨平台(linux/mac)
+支持跨平台(linux/mac)， 支持多种流媒体协议和封装格式：webrtc/rtmp/httpflv/hls/websocket flv
 
 ### webrtc相关特性
 * 房间管理服务
 * websocket长连接接入
-* 加入/离开房间
 * 推流/停止推流
 * 拉流/停止拉流
-* 高性能webrtc转rtmp: 无转码
-
-   高性能支持webrtc的旁路rtmp直播
-* 高性能rtmp转webrtc: 无转码
-
-   高性能支持低延时直播，支持rtmp转为webrtc
+* 高性能webrtc转rtmp
+* 高性能rtmp转webrtc
 
 ### 直播相关特性
 * rtmp推拉流服务(支持h264/vp8+aac/opus in rtmp/flv)
