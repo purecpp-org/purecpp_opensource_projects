@@ -33,6 +33,7 @@ code first：(10行以内的代码展示项目)
 * [cpp-ipc](#cpp-ipc)
 * [luatinkerE](#luatinkerE)
 * [ScriptX](#ScriptX)
+* [CppMediaServer](#CppMediaServer)
 * [moon](#moon)
 
 ## 孵化中
@@ -673,7 +674,7 @@ try {
 4. 支持脚本的异常处理
 5. API强类型
 
-## Cpp Media Server
+## CppMediaServer
 
 项目名称：[Cpp Media Server](https://github.com/runner365/cpp_media_server)
 
