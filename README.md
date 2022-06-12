@@ -672,3 +672,35 @@ try {
 3. 可以从C/C++函数直接创建脚本函数（native 绑定）
 4. 支持脚本的异常处理
 5. API强类型
+
+## Cpp Media Server
+
+项目名称：[Cpp Media Server](https://github.com/runner365/cpp_media_server)
+
+状态：已发布
+
+需要的C++版本：C++17
+
+项目简介：
+cpp media server是基于c++17开发的webrtc会议服务sfu，并且同时支持丰富的直播流媒体特性。
+
+支持跨平台(linux/mac)
+
+### webrtc相关特性
+* 房间管理服务
+* websocket长连接接入
+* 加入/离开房间
+* 推流/停止推流
+* 拉流/停止拉流
+* 高性能webrtc转rtmp: 无转码
+
+   高性能支持webrtc的旁路rtmp直播
+* 高性能rtmp转webrtc: 无转码
+
+   高性能支持低延时直播，支持rtmp转为webrtc
+
+### 直播相关特性
+* rtmp推拉流服务(支持h264/vp8+aac/opus in rtmp/flv)
+* httpflv拉流服务(支持h264/vp8+aac/opus in rtmp/flv)
+* hls录像服务(支持h264/vp8+aac/opus in mpegts)
+* webobs: websocket推送flv直播服务(webcodec编码，websocket flv推流封装)
