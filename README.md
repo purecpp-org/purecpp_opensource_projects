@@ -34,6 +34,7 @@ code first：(10行以内的代码展示项目)
 * [luatinkerE](#luatinkerE)
 * [ScriptX](#ScriptX)
 * [moon](#moon)
+* [async](#async)
 
 ## 孵化中
 
@@ -672,4 +673,46 @@ try {
 3. 可以从C/C++函数直接创建脚本函数（native 绑定）
 4. 支持脚本的异常处理
 5. API强类型
+
+
+## async
+
+项目名称：[async](https://github.com/xiaoquanjie/async)
+
+状态：已发布
+
+需要的C++版本：C++11
+
+项目简介：
+async的目标是为异步代码的“同步编写”提供一个解决方案。其中内置了一些项目中常用的io接口实现，
+比如：mysql,curl,mongo,redis以及基于zeromq而实现的服务端进程间通信。简单易用
+
+支持跨平台(linux/windwos)
+
+code first：
+
+// 下面代码的输出结果是:
+promise begin
+异步执行结束
+promise over:0
+
+```c++
+void promise_test() {
+    // 起一个协程任务，回调将在协程里运行
+    CoroutineTask::doTask([](void*){
+        printf("promise begin\n");
+        auto ret = co_async::promise([](co_async::Resolve resolve, co_async::Reject reject) {
+            // 两秒后执行下面的回调
+            co_async::setTimeout([resolve]() {
+                printf("异步执行结束\n");
+                // 报告promise异步执行结束，并传递结果集，这里传nullptr
+                resolve(nullptr);
+            }, 2*1000);
+        });
+        // promise返回，往下继续走
+        printf("promise over:%d\n", ret.first);
+    }, 0);
+}
+
+```
 
