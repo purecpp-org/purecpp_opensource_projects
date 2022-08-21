@@ -1,5 +1,9 @@
 # purecpp社区开源项目列表
 
+**社区网站**：www.purecpp.cn
+
+**微信公号**: purecpp
+
 ## 格式
 
 项目名称：
